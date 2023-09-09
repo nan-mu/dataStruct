@@ -1,6 +1,14 @@
 {
   "configurations": [
     {
+      "name": "build release",
+      "type": "shell",
+      "request": "launch",
+      "command": "pwd",
+      "cwd": "${workspaceRoot}",
+      "preLaunchTask": "compiler release"
+    },
+    {
       "name": "lldb",
       "type": "lldb",
       "request": "launch",

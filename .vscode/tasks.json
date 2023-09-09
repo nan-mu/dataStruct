@@ -16,18 +16,24 @@
             "options": {
                 "cwd": "${workspaceRoot}"
             },
-            "group": "build"
+            "group": "test"
         },
         {
             "type": "shell",
-            "label": "mkdir",
-            "command": "mkdir",
+            "label": "compiler release",
+            "command": "x86_64-w64-mingw32-gcc",
             "args": [
-                "target/debug",
-                "target/release",
-                "-R"
-            ]
-        }
+                "-Iinclude",
+                "-O2",
+                "-o",
+                "/mnt/c/Users/nan/release/${fileBasenameNoExtension}.exe",
+                "${file}"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "group": "build"
+        },
     ],
     "version": "2.0.0"
 }
