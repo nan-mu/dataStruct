@@ -1,6 +1,14 @@
 {
   "configurations": [
     {
+      "name": "build release for win",
+      "type": "shell",
+      "request": "launch",
+      "command": "pwd",
+      "cwd": "${workspaceRoot}",
+      "preLaunchTask": "compiler release for win"
+    },
+    {
       "name": "build release",
       "type": "shell",
       "request": "launch",
