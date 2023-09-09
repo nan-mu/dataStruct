@@ -23,6 +23,7 @@ class NodeList {
 		opt = nullptr;
 	}
 	bool push(int data);
+	bool print();
 	bool sort();
 	bool pop();	 //单链表的话，就当队列用吧，当堆的话pop的实现就太傻了
 };

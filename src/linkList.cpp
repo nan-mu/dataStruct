@@ -37,11 +37,21 @@ bool NodeList::pop() {
 bool NodeList::sort() {
 	Node *opt2 = nullptr;
 	for (opt = head; opt != nullptr; opt = opt->next) {
-		for (opt2 = opt; opt2 != nullptr; opt2 = opt2->next) {
+		for (opt2 = opt; opt2 != nullptr; opt2 = opt2->next) {	//冒泡排序
 			if (opt2->next->data < opt2->data) {
 				opt2->data += opt2->next->data;
+				opt2->next->data = opt2->data - opt2->next->data;
+				opt2->data = opt2->next->data;
 			}
 		}
 	}
+	return true;
+}
+
+bool NodeList::print() {
+	for (opt = head; opt != nullptr; opt = opt->next) {
+		printf("%d ", opt->data);
+	}
+	printf("\n");
 	return true;
 }
