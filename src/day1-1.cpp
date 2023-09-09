@@ -1,12 +1,12 @@
 #include <cstdio>
 
-#include "linkList.h"
+#include "linkList-1.h"
 
 using namespace std;
 
 #define PROJECT_NAME "DAY1"
 
-#include "comFunc.hpp"	//一些常用的函数
+#include "comFunc.hpp"	// 一些常用的函数
 
 int main() {
 	vector<int> rand_data;	// 准备一些随机数
