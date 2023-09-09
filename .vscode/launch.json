@@ -1,0 +1,16 @@
+{
+  "configurations": [
+    {
+      "name": "lldb",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${fileDirname}/../target/debug/${fileBasenameNoExtension}.exe",
+      "args": [
+        "-d"
+      ],
+      "cwd": "${fileDirname}",
+      "preLaunchTask": "compiler debug"
+    },
+  ],
+  "version": "2.0.0"
+}

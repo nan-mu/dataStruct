@@ -1,0 +1,56 @@
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "C/C++: clang++.exe 生成活动文件",
+            "command": "C:\\Users\\nan\\scoop\\apps\\llvm\\current\\bin\\clang.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "调试器生成的任务。"
+        },
+        {
+            "type": "shell",
+            "label": "compiler debug",
+            "command": "~/scoop/apps/llvm/current/bin/clang++.exe",
+            "args": [
+                "-g",
+                "-std=c++20",
+                "${file}",
+                "-Iinclude",
+                "-v",
+                "-o",
+                ".\\target\\debug\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "mkdir",
+            "command": "mkdir",
+            "args": [
+                "target/debug",
+                "target/release",
+                "-R"
+            ]
+        }
+    ],
+    "version": "2.0.0"
+}
