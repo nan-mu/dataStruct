@@ -4,7 +4,7 @@
       "name": "lldb",
       "type": "lldb",
       "request": "launch",
-      "program": "${fileDirname}/../target/debug/${fileBasenameNoExtension}.exe",
+      "program": "${workspaceRoot}/target/debug/${fileBasenameNoExtension}",
       "args": [
         "-d"
       ],

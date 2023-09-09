@@ -4,11 +4,5 @@
 			"path": "."
 		}
 	],
-	"settings": {
-		"files.associations": {
-			"vector": "cpp",
-			"initializer_list": "cpp",
-			"xutility": "cpp"
-		}
-	}
+	"settings": {}
 }
