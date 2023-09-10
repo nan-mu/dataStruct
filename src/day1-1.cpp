@@ -1,6 +1,6 @@
-#include <cstdio>
+#include "day1-1.h"
 
-#include "linkList-1.h"
+#include <cstdio>
 
 using namespace std;
 
@@ -26,7 +26,7 @@ int main() {
 	line.print();
 
 	// 删除
-	while (line.pop()) {
+	while (line.pop()) {  //显式地删除，之后会写在析构函数里
 	}
 	return 0;
 }
