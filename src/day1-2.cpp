@@ -38,7 +38,7 @@ int main() {
 	printf("\n------------------------\n");
 
 	//做差集
-	lineA.diff(lineB);	//显示地做差集，其实可以用重载
+	lineA.diff(&lineB);	 //显示地做差集，其实可以用重载
 	lineA.print();
 
 	return 0;

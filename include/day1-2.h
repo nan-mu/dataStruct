@@ -16,7 +16,7 @@ typedef struct Node {  // 数据节点类
 class NodeList {
   private:
 	Node *head;	 //指向链表开头
-	Node *opt;	 //用于类函数操作节点
+	// 本来这里有一个opt用来当作中间变量，但第二题略有负责，所以使用中间变量可能会导致作用域污染，所以删掉了
 	Node *tail;	 //指向链表结尾
 	Node *now;	 //用于表示迭代器操作对象
 
@@ -25,7 +25,6 @@ class NodeList {
 		// printf("A node list was created!");
 		head = nullptr;
 		tail = nullptr;
-		opt = nullptr;
 	}
 	~NodeList() {
 		now = nullptr;
@@ -34,7 +33,7 @@ class NodeList {
 	}
 	bool push(int data);
 	bool push_f(int data);
-	bool diff(NodeList diff_set);
+	bool diff(NodeList *diff_set);
 	bool de_same();
 	int length();
 	bool print();
@@ -45,27 +44,24 @@ class NodeList {
 };
 
 inline bool NodeList::de_same() {
-	Node *opt2 = opt;
+	Node *opt = head;
 	int orgin_length = length();
-	opt = head;
 	for (int i = 0; i < orgin_length - 1; i++, opt = opt->next) {
 		if (opt->data != opt->next->data) push(opt->data);
 	}
-
-	for (; orgin_length > 1; orgin_length--) {
+	push(opt->data);
+	for (; orgin_length > 0; orgin_length--) {
 		pop();
 	}
-	opt = opt2;
-	opt2 = nullptr;
+	opt = nullptr;
 	return true;
 };
 
 inline int NodeList::length() {
-	Node *opt2 = opt;
+	Node *opt;
 	int len = 0;
 	for (opt = head; opt != nullptr; opt = opt->next) len++;
-	opt = opt2;
-	opt2 = nullptr;
+	opt = nullptr;
 	return len;
 }
 
@@ -90,8 +86,7 @@ inline bool NodeList::iter(int index) {
 }
 
 inline bool NodeList::push(int data) {
-	Node *opt2 = opt;
-	opt = (Node *)malloc(sizeof(Node));
+	Node *opt = (Node *)malloc(sizeof(Node));
 	opt->data = data;
 	opt->next = nullptr;
 	if (tail == nullptr) {	//创建首个节点的情况
@@ -106,45 +101,39 @@ inline bool NodeList::push(int data) {
 		tail = opt;
 		opt = nullptr;
 	}
-	opt = opt2;
-	opt2 = nullptr;
+	opt = nullptr;
 	return true;
 }
 
 inline bool NodeList::push_f(int data) {
-	Node *opt2 = opt;
+	Node *opt = (Node *)malloc(sizeof(Node));
 	assert(head != nullptr);  //不要用来创建第一个节点！
-	opt = (Node *)malloc(sizeof(Node));
 	opt->data = data;
 	opt->next = head;
 	head = opt;
-	opt = opt2;
-	opt2 = nullptr;
+	opt = nullptr;
 	return true;
 }
 
 inline bool NodeList::pop() {
-	Node *opt2 = opt;
 	if (head == tail) {
 		tail = nullptr;
 		free(head);
 		head = nullptr;
 		printf("clean");
-		opt2 = nullptr;
 		return CLEAN;
 	} else {
 		if (head == now) now = head->next;
-		opt = head;	 //从头开始删除
+		Node *opt = head;  //从头开始删除
 		head = opt->next;
 		free(opt);
-		opt = opt2;
-		opt2 = nullptr;
+		opt = nullptr;
 		return true;
 	}
 }
 
 inline bool NodeList::sort() {
-	Node *opt2 = nullptr;
+	Node *opt2 = nullptr, *opt = nullptr;
 	for (opt = head; opt != nullptr; opt = opt->next) {
 		for (opt2 = opt; opt2 != nullptr; opt2 = opt2->next) {	//冒泡排序
 			if (opt2->data < opt->data) {
@@ -159,33 +148,40 @@ inline bool NodeList::sort() {
 }
 
 inline bool NodeList::print() {
-	Node *opt2 = opt;
+	Node *opt;
 	for (opt = head; opt != nullptr; opt = opt->next) {
 		printf("%d ", opt->data);
 	}
 	printf("\n");
-	opt = opt2;
-	opt2 = nullptr;
+	opt = nullptr;
 	return true;
 }
 
-inline bool NodeList::diff(NodeList diff_set) {
-	Node *opt2 = opt;
+inline bool NodeList::diff(NodeList *diff_set) {
+	Node *opt = head;
 	int orgin_length = length();
-	for (opt = head; opt != nullptr; opt = opt->next) {
-		if (opt->data == diff_set.get(0)) {
-			diff_set.iter(1);
-		} else {
-			diff_set.iter(1);
+	for (int i = 0; i < orgin_length; i++) {
+		if (opt->data > diff_set->get(0)) {
+			if (!diff_set->iter(1)) {
+				for (; i < orgin_length; i++) {
+					push(opt->data);
+					opt = opt->next;
+				}
+				break;
+			};
+			i--;
+		} else if (opt->data < diff_set->get(0)) {
 			push(opt->data);
+			opt = opt->next;
+		} else {
+			diff_set->iter(1);
+			opt = opt->next;
 		};
 	}
 	opt = nullptr;
 	for (; orgin_length > 0; orgin_length--) {
 		pop();
 	}
-	opt = opt2;
-	opt2 = nullptr;
 	return true;
 }
 
