@@ -143,4 +143,28 @@ inline void randomInitArr(vector<int>& arr, int size) {
 									   max);  //设置随机数范围，并为均匀分布
 	for (int i = 0; i < size; i++) arr.push_back(distrib(engine));
 }
+
+inline void quickSort(int arr[], int left, int right) {
+	int i = left, j = right;
+	int pivot = arr[(left + right) / 2];
+
+	// 分割数组
+	while (i <= j) {
+		while (arr[i] < pivot) i++;
+		while (arr[j] > pivot) j--;
+		if (i <= j) swap(arr[i], arr[j]);
+		i++;
+		j--;
+	};
+
+	// 递归排序左半部分
+	if (left < j) {
+		quickSort(arr, left, j);
+	}
+
+	// 递归排序右半部分
+	if (i < right) {
+		quickSort(arr, i, right);
+	}
+}
 }  // namespace com_func
