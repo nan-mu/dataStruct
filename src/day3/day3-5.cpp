@@ -1,5 +1,6 @@
 #include <assert.h>
 
+#include <cstddef>
 #include <cstdio>
 #include <cstdlib>
 
@@ -23,30 +24,46 @@ class NodeLink {
 	Node *head;	 //指向队开头
 	Node *tail;	 //操作对象（队尾）
 	int length;
+	bool push_head(char data) {
+		Node *opt = (Node *)malloc(sizeof(Node));
+		opt->data = data;
+		opt->next = head;
+		if (length++ == 0)
+			tail = opt;
+		else
+			tail->next = opt;
+		head = opt;
+
+		return true;
+	}
 
   public:
 	NodeLink() {  //初始化链表
 		head = nullptr;
 		tail = nullptr;
+		length = 0;
 	}
 	~NodeLink() {
-		while (pop())
+		while (pop() != false)
 			;
 		head = nullptr;
 		tail = nullptr;
 	}
-	bool pop() {
+	int pop() {
+		if (length == 0) return 0;
 		if (head == tail) {	 //删除最后一项
+			char data = head->data;
 			free(head);
 			head = nullptr;
 			tail = nullptr;
 			length = 0;
-			return false;
+			return data;
 		} else {
+			char data = head->data;
 			tail->next = head->next;
 			free(head);
 			head = tail->next;
-			return true;
+			return data;
 		}
 	}
 	bool push(char data) {
@@ -55,6 +72,7 @@ class NodeLink {
 			tail = head;
 			head->data = data;
 			head->next = head;
+			length++;
 			return true;
 		} else {
 			Node *opt = (Node *)malloc(sizeof(Node));
@@ -62,6 +80,7 @@ class NodeLink {
 			tail->next = opt;
 			tail = opt;
 			opt->next = head;
+			length++;
 			return true;
 		}
 	}
@@ -79,5 +98,24 @@ class NodeLink {
 		}
 		printf("\n");
 	}
-	void exchange() {}
+	void exchange() {
+		Node *opt1 = head, *opt2 = tail;
+		size_t temp_length = get_length();
+		char *temp_items = (char *)malloc(sizeof(char) * temp_length);
+		for (size_t i = 0; i < temp_length; i++) temp_items[i] = pop();
+		for (size_t i = 0; i < temp_length; i++) push_head(temp_items[i]);
+		delete temp_items;
+	}
 };
+
+int main() {
+	NodeLink a;
+	a.push('a');
+	a.push('b');
+	a.push('c');
+	a.push('d');
+	a.push('e');
+	a.print();
+	a.exchange();
+	a.print();
+}
