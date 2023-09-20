@@ -84,13 +84,13 @@ class NodeLink {
 			return true;
 		}
 	}
-	int get_length() {	// 计算长度
-		int len = length ? 1 : 0;
+	int get_length() {						// 计算长度
+		int len = head != nullptr ? 1 : 0;	//这个有点多余，但确实穷经了所有情况
 		for (Node *opt = head; opt != tail; opt = opt->next) len++;
 		length = len;
 		return len;
 	}
-	void print() {
+	void print() {	// 打印
 		Node *opt = head;
 		for (int i = get_length(); i > 0; i--) {
 			printf("%c ", opt->data);
@@ -98,7 +98,8 @@ class NodeLink {
 		}
 		printf("\n");
 	}
-	void exchange() {
+	void
+	exchange() {  //颠倒队列，思路是先把队列数据导出，然后再从头插入，时间和空间复杂度都为O(n)
 		Node *opt1 = head, *opt2 = tail;
 		size_t temp_length = get_length();
 		char *temp_items = (char *)malloc(sizeof(char) * temp_length);

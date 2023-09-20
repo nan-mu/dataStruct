@@ -43,6 +43,8 @@
             "args": [
                 "-static",
                 "-Iinclude",
+                "-I../include",
+                "-I../../include",
                 "-o",
                 "/mnt/c/Users/nan/release/${fileBasenameNoExtension}.exe",
                 "${file}",
