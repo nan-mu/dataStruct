@@ -18,7 +18,7 @@ struct point { //如题
 };
 
 /// @brief
-/// 判断方向是否可走。假如要更换城市距离为极坐标距离，就修改这个函数。极坐标距离因为有根号二所有还要另写
+/// 判断方向是否可走。假如要更换城市距离为极坐标距离，就修改这个函数。几何距离因为有根号二所有还要另写
 int find_possible_next_point(point opt, vector<point>& res);
 
 int main() {
