@@ -28,6 +28,8 @@ void printTree(TreeNode* root) {
     }
 }
 
+char jui() { return 0; }
+
 int main() {
     // 创建一个示例二叉树
     //        1
