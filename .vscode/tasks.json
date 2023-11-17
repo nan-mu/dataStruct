@@ -3,7 +3,7 @@
         {
             "type": "shell",
             "label": "compiler debug",
-            "command": "g++",
+            "command": "clang++",
             "args": [
                 "-g",
                 "--std=c++2a",
